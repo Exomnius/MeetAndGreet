@@ -7,7 +7,7 @@
  * Creates an instance of the MY_Parser class.
  */
 class MY_Parser extends CI_Parser {
-    
+
     /**
      * Creates an instance of the MY_Parser class.
      */
@@ -33,14 +33,14 @@ class MY_Parser extends CI_Parser {
 
         //specific data in header
         $header_data['js'] = base_url('assets/js/jquery-2.0.3.min.js');
-        
+
         //header links
         $header_data['main'] = site_url('main');
-        
+
         //favicon link
         $header_data['favicon'] = base_url('favicon.ico');
-        
-        
+
+
         $CI = &get_instance();
         $CI->load->model('user_model');
 
@@ -62,21 +62,11 @@ class MY_Parser extends CI_Parser {
             $header_data['login'] = site_url('login');
             $header_data['profilet'] = 'Register';
             $header_data['logint'] = 'Log in';
-            $header_data['exp']= '';
         } else {
             //$is_admin = $CI->user_model->check_admin($CI->user_model->get_user($CI->session->userdata('id'))['user_group']);
 
             $header_data['profile'] = site_url('user/show/' . $CI->session->userdata('username'));
             $header_data['login'] = site_url('login/logout');
-            
-            $CI->load->model('user_model');
-            $xp = $CI->user_model->getXp($CI->session->userdata('id'))['exp'];
-            $level = $CI->user_model->getLevelByXp($xp);
-            $nextlevel = $CI->user_model->getLevel($level['level'] + 1);
-            
-            $percentage = (int)($xp / $nextlevel['expRequired'] * 100);
-            
-            $header_data['exp'] = '<div style="padding-top: 15px;"><span style="margin-right: 5px;">Level ' . $level['level'] . '</span><div class="progress pull-right" style="width: 200px;margin-bottom: 0px;"><div class="progress-bar" role="progressbar" aria-valuenow="' . $percentage . '" aria-valuemin="0" aria-valuemax="' . $nextlevel['expRequired'] . '" style="width: ' . $percentage . '%;">' . $percentage . '%</div></div></div>';
             $header_data['profilet'] = '';
             $header_data['logint'] = 'Logout';
 //            if ($is_admin)
@@ -120,6 +110,7 @@ class MY_Parser extends CI_Parser {
         echo $this->generate_footer($footer_data);
         ob_flush();
     }
+
 }
 
 ?>

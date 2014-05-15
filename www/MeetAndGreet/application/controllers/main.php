@@ -22,19 +22,30 @@ class Main extends CI_Controller {
         $header_data['css'][] = array('url' => 'assets/css/bootstrap-datetimepicker.min.css');
 
         //vars in form
-        /*$eventName = set_value('eventName');
+        /* $eventName = set_value('eventName');
           $eventTime = set_valur('eventTime');
           $eventCategory = set_value('eventCategory');
           //$eventImage = set_value('username');
           $eventDescription = set_value('eventDescription');
           $eventLocation = set_value('eventLocation'); */
 
+        //gamification
+        $this->load->model('user_model');
+        $xp = $this->user_model->getXp($this->session->userdata('id'))['exp'];
+        $level = $this->user_model->getLevelByXp($xp);
+        $nextlevel = $this->user_model->getLevel($level['level'] + 1);
+
+        $percentage = (int) ($xp / $nextlevel['expRequired'] * 100);
+
+        $level_progress = 'Level ' . $level['level'] . '. ' . $level['title'];
+        $bar_progress = '<div class="progress pull-right text-center" style="width: 100%;margin-bottom: 15px; height: 35px;padding-top: 7px;"><span>' . $percentage . '%</span><div class="progress-bar" style="color: black;" role="progressbar" aria-valuenow="' . $percentage . '" aria-valuemin="0" aria-valuemax="' . $nextlevel['expRequired'] . '" style="width: ' . $percentage . '%;"></div></div>';
+
         //add button
         $createButton = '';
         if ($this->session->userdata('id')) {
             $createButton = '<a class="btn btn-primary pull-right" class="triggerModal" data-toggle="modal" data-target="#createModal">Create Event</a>';
         }
-        
+
         //form vars
         $form_open = form_open('main/validate_event', array('id' => 'frmCreateEvent', 'class' => 'form-horizontal', 'role' => 'form'));
         //$validation_errors = validation_errors();
@@ -47,6 +58,8 @@ class Main extends CI_Controller {
             //, 'eventImage' => $eventImage
             //, 'eventDescription' => $eventDescription
             //, 'eventLocation' => $eventLocation
+            , 'level_progress' => $level_progress
+            , 'bar_progress' => $bar_progress
             , 'createEvent' => $createButton
             , 'form_open' => $form_open
             //, 'validation_errors' => $validation_errors
@@ -59,7 +72,7 @@ class Main extends CI_Controller {
         $categories = $this->category_model->getCategories();
 
         //var_dump($categories);
-        
+
         if ($categories) {
             foreach ($categories as $category) {
                 array_push($data['categories'], array('id' => $category['catId'], 'name' => $category['categorie']));
@@ -109,12 +122,13 @@ class Main extends CI_Controller {
                 , $this->input->post('lat')
                 , $this->input->post('lng')
         );
-        
+
         if ($result) {
-                redirect('main');
-            } else {
-                show_error('Er is een fout opgetreden bij het toevoegen van het evenement. Gelieve een systeemadministrator te contacteren of probeer het later opnieuw.</br></br><a href="'
-                        . site_url('main') . '">terug naar de homepage</a>');
-            }
+            redirect('main');
+        } else {
+            show_error('Er is een fout opgetreden bij het toevoegen van het evenement. Gelieve een systeemadministrator te contacteren of probeer het later opnieuw.</br></br><a href="'
+                    . site_url('main') . '">terug naar de homepage</a>');
+        }
     }
+
 }
