@@ -7,7 +7,7 @@
  * Creates an instance of the MY_Parser class.
  */
 class MY_Parser extends CI_Parser {
-    
+
     /**
      * Creates an instance of the MY_Parser class.
      */
@@ -33,14 +33,14 @@ class MY_Parser extends CI_Parser {
 
         //specific data in header
         $header_data['js'] = base_url('assets/js/jquery-2.0.3.min.js');
-        
+
         //header links
         $header_data['main'] = site_url('main');
-        
+
         //favicon link
         $header_data['favicon'] = base_url('favicon.ico');
-        
-        
+
+
         $CI = &get_instance();
         $CI->load->model('user_model');
 
@@ -67,15 +67,7 @@ class MY_Parser extends CI_Parser {
 
             $header_data['profile'] = site_url('user/show/' . $CI->session->userdata('username'));
             $header_data['login'] = site_url('login/logout');
-            
-            $CI->load->model('user_model');
-            $xp = $CI->user_model->getXp($CI->session->userdata('id'));
-            $level = $CI->user_model->getLevelByXp($xp);
-            $nextlevel = $CI->user_model->getLevel($level['level'] + 1);
-            
-            $percentage = (int)($xp / $nextlevel['expRequired'] * 100);
-            
-            $header_data['profilet'] = 'Level ' . $level['level'] . ' <div class="progress" style="width: 200px;margin-bottom: 0px;"><div class="progress-bar" role="progressbar" aria-valuenow="' . $percentage . '" aria-valuemin="0" aria-valuemax="' . $nextlevel['expRequired'] . '" style="width: ' . $percentage . '%;">' . $percentage . '%</div></div>';
+            $header_data['profilet'] = '';
             $header_data['logint'] = 'Logout';
 //            if ($is_admin)
 //                $header_data['cms'] = '<a href="' . site_url('cms') . '">Beheer</a>';
@@ -118,6 +110,7 @@ class MY_Parser extends CI_Parser {
         echo $this->generate_footer($footer_data);
         ob_flush();
     }
+
 }
 
 ?>

@@ -299,34 +299,32 @@ class User_model extends CI_Model {
         $this->db->where('expdate <', date('Y-m-d H:i:s', time()))->delete('tbl_pass_recovery');
     }
 
-    public function getLevel(int $id) {
+    public function getLevel($id) {
         $this->db->from('tbl_levels')->select('level, expRequired')->where('level', $id);
         $query = $this->db->get();
+
         if ($query->num_rows() == 1) {
-            $row = $query->row();
-            return $row;
+            return $query->row_array();
         } else
             return false;
     }
 
-    public function getLevelByXp(int $xp) {
-        $sql = 'SELECT * FROM tbl_levels WHERE expRequired < ' . $xp . ' LIMIT 1 ORDER BY DESC';
+    public function getLevelByXp($xp) {
+        $sql = 'SELECT * FROM tbl_levels WHERE expRequired > ' . $xp . ' ORDER BY expRequired ASC LIMIT 1';
         $query = $this->db->query($sql);
 
         if ($query->num_rows() == 1) {
-            $row = $query->row();
-            return $row;
+            return $query->row_array();
         } else
             return false;
     }
 
-    public function getXp(int $id) {
+    public function getXp($id) {
         $this->db->from('tbl_users')->select('exp')->where('userId', $id);
         $query = $this->db->get();
 
         if ($query->num_rows() == 1) {
-            $row = $query->row();
-            return $row;
+            return $query->row_array();
         } else
             return false;
     }
@@ -346,5 +344,4 @@ class User_model extends CI_Model {
         else
             return false;
     }
-
 }

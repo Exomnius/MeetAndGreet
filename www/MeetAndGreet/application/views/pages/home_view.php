@@ -1,3 +1,8 @@
+<div class="progress_bar_container">
+    <div class="container">  
+      {bar_progress}
+    </div>
+</div>
 
 <div class="container">
     <div class="col-xs-12 homeActionBar">
@@ -126,7 +131,7 @@
                 type: "GET",
                 dataType: 'json',
                 success: function(data, status) {
-                    
+
                     var iconBase = '/assets/images/';
 
                     for (var i = 0; i < data.length; i++) {
