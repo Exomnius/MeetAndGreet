@@ -32,7 +32,7 @@ class Main extends CI_Controller {
         //add button
         $createButton = '';
         if ($this->session->userdata('id')) {
-            $createButton = '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+            $createButton = '<a class="btn btn-primary pull-right" class="triggerModal" data-toggle="modal" data-target="#createModal">Create Event</a>';
         }
         
         //form vars
