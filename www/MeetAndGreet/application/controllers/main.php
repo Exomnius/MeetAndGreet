@@ -20,7 +20,7 @@ class Main extends CI_Controller {
         $header_data['header'] = '';
         
         $footer_data['js'] = array(array('url' => 'http://maps.google.com/maps/api/js?sensor=true&amp;libraries=places'),
-                                    (array('url' => 'jquery.geocomplete.js')));
+                                    (array('url' => 'assets/js/jquery.geocomplete.min.js')));
         
         $data =array('title' => 'Welcome!');
 
