@@ -1,9 +1,7 @@
 <div class="container">
     <h1>{title}</h1>
     <section>
-        <article>
-            
-        </article>
+        <article></article>
     </section>
 </div>
 <Script>
@@ -11,7 +9,7 @@
         var mapcanvas = document.createElement('div');
         mapcanvas.id = 'mapcontainer';
         mapcanvas.style.height = '400px';
-        mapcanvas.style.width = '600px';
+        mapcanvas.className = 'text-center';
 
         document.querySelector('article').appendChild(mapcanvas);
 

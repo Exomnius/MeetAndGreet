@@ -73,20 +73,6 @@ class MY_Parser extends CI_Parser {
                 $header_data['cms'] = '<a href="' . site_url('cms') . '">Beheer</a>';
         }
 
-        //search
-        if (isset($header_data['header']))
-            $header_data['headerv'] = "<div class='container'>
-                                        <h1 class='col-lg-6 pull-left'>" . $header_data['header'] . "</h1>
-                                        <div class='input-group pull-right col-lg-3 search'>
-                                        <input id='search' type='text' class='form-control'>
-                                        <span class='input-group-btn'>
-                                        <button class='btn btn-primary' onclick='search()'>Go!</button>
-                                        </span>
-                                        </div>
-                                        </div>";
-        else
-            $header_data['headerv'] = "";
-
         return $this->CI->parser->parse('templates/header_view', $header_data, true);
     }
 

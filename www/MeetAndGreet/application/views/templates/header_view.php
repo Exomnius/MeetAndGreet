@@ -21,7 +21,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{main}">Hexion</a>
+                <a class="navbar-brand" href="{main}">Meet And Greet</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -29,10 +29,9 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <!--<li id="register"><a href="{profile}">{profilet}</a></li>-->
-                    <!--<li id="login"><a href="{login}">{logint}</a></li>-->
+                    <li id="login"><a href="{login}">{logint}</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    {headerv}
     {message_modal}
