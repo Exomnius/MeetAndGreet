@@ -16,3 +16,17 @@
 	width: 100% !important;
 	height: auto;
 }
+
+.eventMap {
+	width: 100%;
+	height: 300px;
+	z-index: 2055;
+}
+
+.pac-container {
+	z-index: 2000;
+}
+
+#geocomplete {
+	z-index: 2060;
+}

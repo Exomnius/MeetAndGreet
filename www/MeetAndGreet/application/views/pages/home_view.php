@@ -2,7 +2,7 @@
 <div class="container">
     <div class="col-xs-12 homeActionBar">
         <h1 class="pull-left">{title}</h1>
-        <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal">Create Event</a>
+        <a class="btn btn-primary pull-right" class="triggerModal" data-toggle="modal" data-target="#createModal">Create Event</a>
     </div>
 </div>
 
@@ -10,22 +10,7 @@
     <div id="map">
     </div>
 </div>
-<form>
-    <input id="geocomplete" type="text" placeholder="Type in an address" value="Empire State Bldg" autocomplete="off" />
-    <input id="find" type="button" value="find" />
-    <fieldset class="details">
-        <h3>Address-Details</h3>
-    </fieldset>
-    <ul>
-        <li>Location: <span data-geo="location"></span></li>
-        <li>Route: <span data-geo="route"></span></li>
-        <li>Street Number: <span data-geo="street_number"></span></li>
-        <li>Postal Code: <span data-geo="postal_code"></span></li>
-        <li>Locality: <span data-geo="locality"></span></li>
-        <li>Country Code: <span data-geo="country_short"></span></li>
-        <li>State: <span data-geo="administrative_area_level_1"></span></li>
-    </ul>
-</form>
+
 <div id="createModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -70,10 +55,10 @@
                 <div class="form-group">
                     <label for="eventLocation" class="control-label col-lg-3">Location:</label>
                     <div class="col-lg-6">
-                        <input type="text" name="eventLocation" class="form-control"/>
+                        <input type="text" id="geocomplete" class="form-control" name="eventLocation"/>
                     </div>
                 </div> 
-
+                <!-- <div class="eventMap"></div> -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary">Create</button>
@@ -87,44 +72,41 @@
 </div>
 <!-- /.modal -->
 
+
 <script>
     $(document).ready(function() {
+
         $('#dtpStart').datetimepicker({
             language: 'en',
             format: 'YYYY-M-d hh:mm:ss A'
         });
 
         var map = null;
+        var currentInfoWindow = null;
 
-    function success(position) {
-        var mapcanvas = document.createElement('div');
-        mapcanvas.id = 'mapcontainer';
-        mapcanvas.style.height = '400px';
-        mapcanvas.className = 'text-center';
 
-        document.querySelector('#map').appendChild(mapcanvas);
+        function success(position) {
+            var mapcanvas = document.createElement('div');
+            mapcanvas.id = 'mapcontainer';
+            mapcanvas.style.height = '400px';
+            mapcanvas.className = 'text-center';
 
-        var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            document.querySelector('#map').appendChild(mapcanvas);
 
-        var options = {
-            zoom: 15,
-            center: coords,
-            mapTypeControl: false,
-            navigationControlOptions: {
-                style: google.maps.NavigationControlStyle.SMALL
-            },
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
+            var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-        map = new google.maps.Map(document.getElementById("mapcontainer"), options);
+            var options = {
+                zoom: 15,
+                center: coords,
+                mapTypeControl: false,
+                navigationControlOptions: {
+                    style: google.maps.NavigationControlStyle.SMALL
+                },
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
 
-        // var marker = new google.maps.Marker({
-        //     position: coords,
-        //     map: map,
-        //     title: "You are here!"
-        // });
-
-        getMarkers();
+            map = new google.maps.Map(document.getElementById("mapcontainer"), options);
+            getMarkers();
     }
 
     if (navigator.geolocation) {
@@ -133,12 +115,12 @@
         error('Geo Location is not supported');
     }
 
-        function getMarkers() {
+      function getMarkers(){
         $.ajax({
             url: "api/getMarkers",
-                type: "GET",
-                dataType: 'json',
-                success: function(data, status) {
+            type : "GET",
+            dataType:'json',
+            success: function(data, status){
                 console.log(data);
                 for (var i = 0; i < data.length; i++) {
                     
@@ -151,19 +133,18 @@
                     var infowindow = new google.maps.InfoWindow();
 
                     bindInfoWindow(marker, map, infowindow, data[i]['infoWindow']); 
-
-                    // google.maps.event.addListener(marker, 'click', function() {
-                    //     infowindow.open(map, this);
-                    //     currentInfoWindow = infowindow;
-                    // });
                 }
             },
-                error: function(jqXHR, status, error) {
+            error: function(jqXHR, status, error){
                 console.log('Error: ' + error);
             }
         });
     }
-    });
+
+
+    $("#geocomplete").geocomplete();
+
+});
 
 function joinEvent(id){
 
@@ -199,22 +180,7 @@ function bindInfoWindow(marker, map, infowindow, html) {
         infowindow.setContent(html);
         infowindow.open(map, marker);
         currentInfoWindow = infowindow;
-    });
-    
+    });    
 } 
-</script>
 
-<script>
-    $(function() {
-        var options = {
-            map: "#map",
-            details: "form ul",
-            detailsAttribute: "data-geo"};
-        
-        $("#geocomplete").geocomplete(options);
-
-        $("#find").click(function() {
-            $("#geocomplete").trigger("geocode");
-        });
-    });
 </script>
