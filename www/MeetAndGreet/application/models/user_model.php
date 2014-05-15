@@ -336,7 +336,7 @@ class User_model extends CI_Model {
      * @param type $offset
      * @return boolean
      */
-    public function get_friends($id) {
+    public function getFriends($id) {
         $result = $this->db->select('*')->from('tbl_friends')->join('tbl_users', 'tbl_users.userId = tbl_friends.friendId')->where('tbl_friends.userId', $id)->get();
 
         if ($result->num_rows() > 0)
