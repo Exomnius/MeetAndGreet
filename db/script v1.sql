@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS `tbl_eventsusers` (
 CREATE TABLE IF NOT EXISTS `tbl_levels` (
 	`level` int(5) NOT NULL AUTO_INCREMENT,
 	`expRequired` int(10) NOT NULL,
+	`title` varchar(20) NOT NULL,
 	PRIMARY KEY (`level`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
@@ -86,13 +87,13 @@ INSERT INTO `tbl_eventCategories` (`catId`, `categorie`, `iconURL`) VALUES
 INSERT INTO `tbl_events` (`user`, `description`, `catId`, `latitude`, `longitude`) VALUES
 (1, 'hackathon', 1, 51.059257, 3.720036);
 
-INSERT INTO `tbl_levels` (`level`, `expRequired`) VALUES
-	(1, floor(10*power(2.5, 0))),
-	(2, floor(10*power(2.5, 1))),
-	(3, floor(10*power(2.5, 2))),
-	(4, floor(10*power(2.5, 3))),
-	(5, floor(10*power(2.5, 4))),
-	(6, floor(10*power(2.5, 5)));
+INSERT INTO `tbl_levels` (`level`, `expRequired`, `title`) VALUES
+	(1, floor(10*power(2.5, 0)), 'Forever alone'),
+	(2, floor(10*power(2.5, 1)), 'Socialy awkward pinguin'),
+	(3, floor(10*power(2.5, 2)), 'Human being'),
+	(4, floor(10*power(2.5, 3)), 'Succes kid'),
+	(5, floor(10*power(2.5, 4)), 'Overly attatched'),
+	(6, floor(10*power(2.5, 5)), 'Creeper');
 
 ALTER TABLE `tbl_users`
 ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`userType`) REFERENCES `tbl_userTypes` (`typeId`) ON DELETE CASCADE ON UPDATE CASCADE;
