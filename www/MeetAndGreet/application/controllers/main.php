@@ -15,7 +15,12 @@ class Main extends CI_Controller {
      * COMMENT ABOUT THE FUNCTION
      */
     public function index() {
-        $footer_data['js'] = array(array('url' => 'http://maps.google.com/maps/api/js?sensor=true"'));
+        $header_data['title'] = 'Homepagina';
+        $footer_data['active'] = 'home';
+        $header_data['header'] = '';
+        
+        $footer_data['js'] = array(array('url' => 'http://maps.google.com/maps/api/js?sensor=true&amp;libraries=places"'));
+        $footer_data['js'] = array(array('url' => 'jquery.geocomplete.js"'));
         
         $data =array('title' => 'Welcome!');
 
