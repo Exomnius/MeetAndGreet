@@ -7,6 +7,7 @@ USE `meetAndGreet`;
 
 CREATE TABLE IF NOT EXISTS `tbl_events` (
 	`eventId` int(5) NOT NULL AUTO_INCREMENT,
+	`eventName` varchar(20) NOT NULL,
 	`user` int(5) NOT NULL,
 	`description` Text,
 	`catId` int(5) NOT NULL,
@@ -48,11 +49,19 @@ CREATE TABLE IF NOT EXISTS `tbl_userTypes` (
 	PRIMARY KEY(`typeId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
-CREATE TABLE IF NOT EXISTS `tbl_participants` (
+CREATE TABLE IF NOT EXISTS `tbl_eventsusers` (
 	`eventId` int(5) NOT NULL,
 	`userId` int(11) NOT NULL,
 	PRIMARY KEY (`eventId`, `userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `tbl_levels` (
+	`level` int(5) NOT NULL AUTO_INCREMENT,
+	`expRequired` int(10) NOT NULL,
+	PRIMARY KEY (`level`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+
 
 INSERT INTO `tbl_userTypes`(`type`) VALUES
 ('temporary'),
@@ -84,6 +93,6 @@ ALTER TABLE `tbl_events`
 ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`catId`) REFERENCES `tbl_eventCategories` (`catId`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `events_ibfk_2` FOREIGN KEY (`catId`) REFERENCES `tbl_eventCategories` (`catId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `tbl_participants`
-ADD CONSTRAINT `participants_ibfk_1` FOREIGN KEY(`eventId`) REFERENCES `tbl_events` (`eventId`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `participants_ibfk_2` FOREIGN KEY(`userId`) REFERENCES `tbl_users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `tbl_eventsusers`
+ADD CONSTRAINT `eventsusers_ibfk_1` FOREIGN KEY(`eventId`) REFERENCES `tbl_events` (`eventId`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `eventsusers_ibfk_2` FOREIGN KEY(`userId`) REFERENCES `tbl_users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
