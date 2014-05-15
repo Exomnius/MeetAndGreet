@@ -19,8 +19,8 @@ class Main extends CI_Controller {
         $footer_data['active'] = 'home';
         $header_data['header'] = '';
         
-        $footer_data['js'] = array(array('url' => 'http://maps.google.com/maps/api/js?sensor=true&amp;libraries=places"'),
-                                    (array('url' => 'jquery.geocomplete.js"')));
+        $footer_data['js'] = array(array('url' => 'http://maps.google.com/maps/api/js?sensor=true&amp;libraries=places'),
+                                    (array('url' => 'jquery.geocomplete.js')));
         
         $data =array('title' => 'Welcome!');
 

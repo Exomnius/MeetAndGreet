@@ -1,12 +1,16 @@
+
 <div class="container">
     <div class="col-xs-12">
         <h1 class="pull-left">{title}</h1>
         <a href="{create}" class="btn btn-primary pull-right">Create Event</a>
     </div>
-    <section>
-        <article></article>
-    </section>
 </div>
+
+<div class="container">
+    <div id="map">
+    </div>
+</div>
+
 <Script>
 $(document).ready(function(){
         
@@ -19,7 +23,7 @@ $(document).ready(function(){
         mapcanvas.style.height = '400px';
         mapcanvas.className = 'text-center';
 
-        document.querySelector('article').appendChild(mapcanvas);
+        document.querySelector('#map').appendChild(mapcanvas);
 
         var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
