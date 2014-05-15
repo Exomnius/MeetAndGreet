@@ -2,7 +2,7 @@
 <div class="container">
     <div class="col-xs-12 homeActionBar">
         <h1 class="pull-left">{title}</h1>
-        <a class="btn btn-primary pull-right" class="triggerModal" data-toggle="modal" data-target="#createModal">Create Event</a>
+        {createEvent}
     </div>
 </div>
 

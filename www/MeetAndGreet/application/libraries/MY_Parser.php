@@ -66,7 +66,7 @@ class MY_Parser extends CI_Parser {
             //$is_admin = $CI->user_model->check_admin($CI->user_model->get_user($CI->session->userdata('id'))['user_group']);
 
             $header_data['profile'] = site_url('user/show/' . $CI->session->userdata('username'));
-            $header_data['login'] = site_url('user/logout');
+            $header_data['login'] = site_url('login/logout');
             $header_data['profilet'] = 'Profiel';
             $header_data['logint'] = 'Logout';
 //            if ($is_admin)

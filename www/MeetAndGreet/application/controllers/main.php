@@ -29,6 +29,12 @@ class Main extends CI_Controller {
           $eventDescription = set_value('eventDescription');
           $eventLocation = set_value('eventLocation'); */
 
+        //add button
+        $createButton = '';
+        if ($this->session->userdata('id')) {
+            $createButton = '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+        }
+        
         //form vars
         $form_open = form_open('main/validate_event', array('id' => 'frmCreateEvent', 'class' => 'form-horizontal', 'role' => 'form'));
         //$validation_errors = validation_errors();
@@ -41,6 +47,7 @@ class Main extends CI_Controller {
             //, 'eventImage' => $eventImage
             //, 'eventDescription' => $eventDescription
             //, 'eventLocation' => $eventLocation
+            , 'createEvent' => $createButton
             , 'form_open' => $form_open
             //, 'validation_errors' => $validation_errors
             , 'form_close' => $form_close
