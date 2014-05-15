@@ -167,7 +167,7 @@
                 if (data == -1) {
                     $("<div id='joinResult' class='alert alert-warning'>You already joined this event!</div>").insertBefore(".homeActionBar");
                 } else if (data == 0) {
-                    $("<div id='joinResult' class='alert alert-success'>You could not join this event.</div>").insertBefore(".homeActionBar");
+                    $("<div id='joinResult' class='alert alert-warning'>You could not join this event.</div>").insertBefore(".homeActionBar");
                 } else if (data == 1) {
                     $("<div id='joinResult' class='alert alert-success'>You joined this event!</div>").insertBefore(".homeActionBar");
                 }
