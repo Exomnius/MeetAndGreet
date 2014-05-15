@@ -2,7 +2,7 @@
 <div class="container">
     <div class="col-xs-12">
         <h1 class="pull-left">{title}</h1>
-        <a href="{create}" class="btn btn-primary pull-right">Create Event</a>
+        <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal">Create Event</a>
     </div>
 </div>
 
@@ -16,63 +16,74 @@
     <fieldset class="details">
         <h3>Address-Details</h3>
 
-        <label>Latitude</label>
-        <input name="lat" type="text" value="">
+<div id="createModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Create an Event!</h3>
+            </div>
+            <div class="modal-body">
+                {form_open}
+                <div class="form-group">
+                    <label for="eventName" class="control-label col-lg-3">Event Name:</label>
+                    <div class="col-lg-6">
+                        <input type="text" name="eventName" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="eventTime" class="control-label col-lg-3">Start:</label>
+                    <div class="col-lg-6">
+                        <div class='input-group date' id="dtpStart">
+                            <input type='text' name="dtpStart" class="form-control" readonly value="{start}" />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                            </span> 
+                        </div>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label for="eventCategory" class="control-label col-lg-3">Event Category:</label>
+                    <div class="col-lg-6">
+                        <select name="eventCategory" class="form-control">
+                            {categories}
+                            <option value="{id}">{name}</option>
+                            {/categories}
+                        </select>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label for="eventDescription" class="control-label col-lg-3">Description:</label>
+                    <div class="col-lg-6">
+                        <textarea name="eventDescription" class="form-control" style="width: 100%;"></textarea>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label for="eventLocation" class="control-label col-lg-3">Location:</label>
+                    <div class="col-lg-6">
+                        <input type="text" name="eventLocation" class="form-control"/>
+                    </div>
+                </div> 
 
-        <label>Longitude</label>
-        <input name="lng" type="text" value="">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+                {form_close}
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-        <label>Location</label>
-        <input name="location" type="text" value="">
-
-        <label>Location Type</label>
-        <input name="location_type" type="text" value="">
-
-        <label>Formatted Address</label>
-        <input name="formatted_address" type="text" value="">
-
-        <label>Bounds</label>
-        <input name="bounds" type="text" value="">
-
-        <label>Viewport</label>
-        <input name="viewport" type="text" value="">
-
-        <label>Route</label>
-        <input name="route" type="text" value="">
-
-        <label>Street Number</label>
-        <input name="street_number" type="text" value="">
-
-        <label>Postal Code</label>
-        <input name="postal_code" type="text" value="">
-
-        <label>Locality</label>
-        <input name="locality" type="text" value="">
-
-        <label>Sub Locality</label>
-        <input name="sublocality" type="text" value="">
-
-        <label>Country</label>
-        <input name="country" type="text" value="">
-
-        <label>Country Code</label>
-        <input name="country_short" type="text" value="">
-
-        <label>State</label>
-        <input name="administrative_area_level_1" type="text" value="">
-
-        <label>ID</label>
-        <input name="id" type="text" value="">
-
-        <label>URL</label>
-        <input name="url" type="text" value="">
-
-        <label>Website</label>
-        <input name="website" type="text" value="">
-    </fieldset>
-</form>
-<Script>
+<script>
     $(document).ready(function() {
+        $('#dtpStart').datetimepicker({
+            language: 'en',
+            format: 'YYYY-M-d hh:mm:ss A'
+        });
+
         var map = null;
 
         function success(position) {
@@ -132,18 +143,5 @@
                 }
             });
         }
-    });
-    
-    $("input").geocomplete({map: ".map"})
-    $(function() {
-        $("#geocomplete").geocomplete({
-            map: ".map",
-            details: ".details",
-            types: ["geocode", "establishment"]
-        });
-
-        $("#find").click(function() {
-            $("#geocomplete").trigger("geocode");
-        });
     });
 </script>
