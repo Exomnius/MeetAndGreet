@@ -72,7 +72,7 @@ class User_model extends CI_Model {
      */
     public function register_user($username, $firstname, $lastname, $email, $password, $address, $city, $dob, $gender) {
         $pass = $this->encrypt_password($password);
-        $data = array('username' => $username, 'firstname' =>$firstname, 'lastname' => $lastname, 'email' => $email, 'password' => $pass, 'address' => $address, 'city' => $city, 'dob' => $dob, 'gender' => $gender);
+        $data = array('username' => $username, 'firstname' => $firstname, 'lastname' => $lastname, 'email' => $email, 'password' => $pass, 'address' => $address, 'city' => $city, 'dob' => $dob, 'gender' => $gender);
         $this->db->insert('tbl_users', $data);
         return 1;
     }
@@ -299,7 +299,7 @@ class User_model extends CI_Model {
         $this->db->where('expdate <', date('Y-m-d H:i:s', time()))->delete('tbl_pass_recovery');
     }
 
-    public function getLevel(int $id){
+    public function getLevel(int $id) {
         $this->db->from('tbl_levels')->select('level, expRequired')->where('level', $id);
         $query = $this->db->get();
         if ($query->num_rows() == 1) {
@@ -308,8 +308,8 @@ class User_model extends CI_Model {
         } else
             return false;
     }
-    
-    public function getLevelByXp(int $xp){
+
+    public function getLevelByXp(int $xp) {
         $sql = 'SELECT * FROM tbl_levels WHERE expRequired < ' . $xp . ' LIMIT 1 ORDER BY DESC';
         $query = $this->db->query($sql);
 
@@ -319,15 +319,32 @@ class User_model extends CI_Model {
         } else
             return false;
     }
-    
-    public function getXp(int $id){
+
+    public function getXp(int $id) {
         $this->db->from('tbl_users')->select('exp')->where('userId', $id);
         $query = $this->db->get();
-        
+
         if ($query->num_rows() == 1) {
             $row = $query->row();
             return $row;
         } else
             return false;
     }
+
+    /**
+     * Returns all of users.
+     * 
+     * @param type $limit
+     * @param type $offset
+     * @return boolean
+     */
+    public function get_friends($id) {
+        $result = $this->db->select('*')->from('tbl_friends')->join('tbl_users', 'tbl_users.userId = tbl_friends.friendId')->where('tbl_friends.userId', $id)->get();
+
+        if ($result->num_rows() > 0)
+            return $result->result_array();
+        else
+            return false;
+    }
+
 }

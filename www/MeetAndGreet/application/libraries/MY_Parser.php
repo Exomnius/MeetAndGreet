@@ -68,10 +68,10 @@ class MY_Parser extends CI_Parser {
             $header_data['profile'] = site_url('user/show/' . $CI->session->userdata('username'));
             $header_data['login'] = site_url('login/logout');
             
-            $this->load->model('user_model');
-            $xp = $this->user_model->getXp($this->session->userdata('id'));
-            $level = $this->user_model->getLevelByXp($xp);
-            $nextlevel = $this->user_model->getLevel($level['level'] + 1);
+            $CI->load->model('user_model');
+            $xp = $CI->user_model->getXp($CI->session->userdata('id'));
+            $level = $CI->user_model->getLevelByXp($xp);
+            $nextlevel = $CI->user_model->getLevel($level['level'] + 1);
             
             $percentage = (int)($xp / $nextlevel['expRequired'] * 100);
             
