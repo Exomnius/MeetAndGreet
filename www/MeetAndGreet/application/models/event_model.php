@@ -48,7 +48,7 @@ class Event_model extends CI_Model {
     }
 
     public function createEvent($userId, $eventName, $eventTime, $eventCategory, $eventDescription, $lat, $lng) {
-        $this->db->insert('tbl_events', array('user' => $userId, 'description' => $eventDescription, 'catId' => $eventCategory, 'startTime' => $eventTime, 'latitude' => $lat, 'longitude' => $lng));
+        $this->db->insert('tbl_events', array('user' => $userId, 'eventName' => $eventName, 'description' => $eventDescription, 'catId' => $eventCategory, 'startTime' => $eventTime, 'latitude' => $lat, 'longitude' => $lng));
 
 
         if ($this->db->affected_rows()) {
