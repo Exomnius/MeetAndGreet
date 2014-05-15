@@ -37,8 +37,22 @@ class Main extends CI_Controller {
 
         $percentage = (int) ($xp / $nextlevel['expRequired'] * 100);
 
+
+
         $level_progress = 'Level ' . $level['level'] . '. ' . $level['title'];
-        $bar_progress = '<div class="progress pull-right text-center" style="width: 100%;margin-bottom: 15px; height: 35px;padding-top: 7px;"><span>' . $percentage . '%</span><div class="progress-bar" style="color: black;" role="progressbar" aria-valuenow="' . $percentage . '" aria-valuemin="0" aria-valuemax="' . $nextlevel['expRequired'] . '" style="width: ' . $percentage . '%;"></div></div>';
+        
+        $bar_progress = '
+        <div class="progress pull-right text-center" style="width: 100%;margin-bottom: 15px; height: 35px;">
+          <span style="position: absolute; width: 200px; margin-left: -100px; padding-top: 7px;">' . $percentage . '% '. $level_progress .'</span>
+          <div class="progress-bar" style="color: black; height: 100%; width: '.$percentage.'%;" role="progressbar" aria-valuenow="' . $percentage . '" aria-valuemin="0" aria-valuemax="' . $nextlevel['expRequired'] . '" style="width: ' . $percentage . '%;">
+          </div>
+        </div>';
+        // $bar_progress = '
+        // <div class="progress pull-right text-center" style="width: 100%;margin-bottom: 15px; height: 35px;">
+        //   <span style="position: absolute; padding-top: 7px;">' . $percentage . '%</span>
+        //   <div class="progress-bar" style="color: black; height: 100%; width: '.$percentage.'%;" role="progressbar" aria-valuenow="' . $percentage . '" aria-valuemin="0" aria-valuemax="' . $nextlevel['expRequired'] . '" style="width: ' . $percentage . '%;">
+        //   </div>
+        // </div>';
 
         //add button
         $createButton = '';

@@ -1,6 +1,10 @@
+<div class="progress_bar_container">
+    <div class="container">  
+      {bar_progress}
+    </div>
+</div>
 
 <div class="container">
-    {bar_progress}
     <div class="col-xs-12 homeActionBar">
         <h1 class="pull-left">{title}</h1>
         {createEvent}
