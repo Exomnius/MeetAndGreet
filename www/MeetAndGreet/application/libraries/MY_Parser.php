@@ -7,7 +7,7 @@
  * Creates an instance of the MY_Parser class.
  */
 class MY_Parser extends CI_Parser {
-
+    
     /**
      * Creates an instance of the MY_Parser class.
      */
@@ -36,13 +36,6 @@ class MY_Parser extends CI_Parser {
         
         //header links
         $header_data['main'] = site_url('main');
-        $header_data['members'] = site_url('main/userlist');
-        $header_data['forum'] = site_url('forum');
-        $header_data['events'] = site_url('main/show_calendar');
-        $header_data['albums'] = site_url('album/show_albums');
-        $header_data['info'] = site_url('main/info');
-        $header_data['cms'] = '';
-        $header_data['baselink'] = site_url('main/search');
         
         //favicon link
         $header_data['favicon'] = base_url('favicon.ico');
