@@ -13,18 +13,18 @@ class Event_model extends CI_Model {
 		return $this->db->get('tbl_events')->result();
 	}
 
-	public function getEventCategorie($id){
+    public function getEventCategorie($id) {
 		$query = $this->db->select('*')->from('tbl_eventcategories')->where('catId', $id)->get();
 
         if ($query->num_rows() == 1)
-            return $query->row_array();
+            return $query->result()[0];
         else
             return false;
 	}
 
-	public function getEventPeopleJoinedCount($id){
+    public function getEventPeopleJoinedCount($id) {
 
-		$query = $this->db->select('*')->from('tbl_eventusers')->where('eventId', $id)->get();
+		$query = $this->db->select('*')->from('tbl_eventsusers')->where('eventId', $id)->get();
 		$count = $query->num_rows();
 		return $count;
 	}
@@ -32,21 +32,30 @@ class Event_model extends CI_Model {
 	public function joinEvent($eventId, $userId) {
 
 		$query = $this->db->select('*')
-						->from('tbl_eventusers')
+						->from('tbl_eventsusers')
 						->where('eventId', $eventId)
 						->where('userId', $userId)->get();
 		$count = $query->num_rows();
 
-		if($count != 0)
+        if ($count != 0)
 			return -1;
 
-		$this->db->insert('tbl_eventusers', array('userId' => $userId, 'eventId' => $eventId));
+		$this->db->insert('tbl_eventsusers', array('userId' => $userId, 'eventId' => $eventId));
 		if ($this->db->affected_rows())
             return 1;
         else
             return 0;
+    }
 
+    public function createEvent($userId, $eventName, $eventTime, $eventCategory, $eventDescription, $lat, $lng) {
+        $this->db->insert('tbl_events', array('user' => $userId, 'eventName' => $eventName, 'description' => $eventDescription, 'catId' => $eventCategory, 'startTime' => $eventTime, 'latitude' => $lat, 'longitude' => $lng));
+
+
+        if ($this->db->affected_rows()) {
+            return true;
+        } else {
+            return false;
 	}
-
+    }
 
 }

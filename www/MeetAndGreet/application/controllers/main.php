@@ -100,12 +100,21 @@ class Main extends CI_Controller {
     public function create_event() {
         $this->load->model('event_model');
 
-        $result = $this->event_model->create_event(
-                $this->input->get_session('id')
+        $result = $this->event_model->createEvent(
+                $this->session->userdata('id')
                 , $this->input->post('eventName')
-                , date('Y-m-d h:i:s A', strtotime($this->input->post('eventTime')))
+                , $this->input->post('eventTime')
                 , $this->input->post('eventCategory')
-                , $this->input->post('eventDescription'), $this->input->post('eventLocation')
+                , $this->input->post('eventDescription')
+                , $this->input->post('lat')
+                , $this->input->post('lng')
         );
+        
+        if ($result) {
+                redirect('main');
+            } else {
+                show_error('Er is een fout opgetreden bij het toevoegen van het evenement. Gelieve een systeemadministrator te contacteren of probeer het later opnieuw.</br></br><a href="'
+                        . site_url('main') . '">terug naar de homepage</a>');
+            }
     }
 }
