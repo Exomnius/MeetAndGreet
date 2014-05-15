@@ -1,7 +1,8 @@
 
 <div class="infoWindow">
 	<div>
-		<h4><i class="<?php print $catIcon; ?>"></i> <?php print $cat->categorie. ' met '.$user['username']; ?></h4>
+		<h4><i class="<?php print $catIcon; ?>"></i><?php print $event->eventName; ?></h4>
+		<h5><?php print 'With '.$user['username']; ?></h5>
 		<?php if($joinedCount != 0): ?>
 			<p><?php print $joinedCount. ' people are going.' ?></p>
 		<?php endif; ?>
