@@ -16,6 +16,15 @@
     <fieldset class="details">
         <h3>Address-Details</h3>
     </fieldset>
+    <ul>
+        <li>Location: <span data-geo="location"></span></li>
+        <li>Route: <span data-geo="route"></span></li>
+        <li>Street Number: <span data-geo="street_number"></span></li>
+        <li>Postal Code: <span data-geo="postal_code"></span></li>
+        <li>Locality: <span data-geo="locality"></span></li>
+        <li>Country Code: <span data-geo="country_short"></span></li>
+        <li>State: <span data-geo="administrative_area_level_1"></span></li>
+    </ul>
 </form>
 <div id="createModal" class="modal fade">
     <div class="modal-dialog">
@@ -144,5 +153,20 @@
                 }
             });
         }
+    });
+</script>
+
+<script>
+    $(function() {
+        var options = {
+            map: "#map",
+            details: "form ul",
+            detailsAttribute: "data-geo"};
+        
+        $("#geocomplete").geocomplete(options);
+
+        $("#find").click(function() {
+            $("#geocomplete").trigger("geocode");
+        });
     });
 </script>
