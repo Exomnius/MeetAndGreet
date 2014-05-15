@@ -34,6 +34,9 @@ class Api extends CI_Controller {
         	$infoWindow['event'] = $event;
         	$infoWindow['joinedCount'] = $this->event_model->getEventPeopleJoinedCount($event->eventId);        	
 
+        	// var_dump($infoWindow['cat']);
+        	// die();
+
         	$data[] = array(
         		'event' => $event,
         		'infoWindow' => $this->load->view('templates/info_window', $infoWindow, true)
@@ -56,7 +59,13 @@ class Api extends CI_Controller {
         $this->load->model('event_model');
 
         $userId = 2; // todo remove this
-    	$data = $this->event_model->joinEvent($eventId, $userId);
+
+        if($this->session->userdata('id')){
+        	$data = $this->event_model->joinEvent($eventId, $userId);
+        } else {
+        	$data = false;
+        }
+
 
     	print json_encode($data);
 
