@@ -1,6 +1,6 @@
 --
 -- Databank: `meetAndGreet`
---
+-- alalala
 DROP DATABASE IF EXISTS `meetAndGreet`;
 CREATE DATABASE IF NOT EXISTS `meetAndGreet`;
 USE `meetAndGreet`;
@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS `tbl_events` (
 	`user` int(5) NOT NULL,
 	`description` Text,
 	`catId` int(5) NOT NULL,
+	`startTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(),
 	`latitude` decimal(15,12) NOT NULL,
 	`longitude` decimal(15,12) NOT NULL,
 	PRIMARY KEY (`eventId`)
@@ -38,7 +39,6 @@ CREATE TABLE IF NOT EXISTS `tbl_users` (
   `profile_pic` varchar(30),
   `about` text NOT NULL,
   `userType` int(2) NOT NULL DEFAULT 1,
-  `activation_code` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
@@ -52,9 +52,9 @@ INSERT INTO `tbl_userTypes`(`type`) VALUES
 ('temporary'),
 ('registered');
 
-INSERT INTO `tbl_users` (`userId`, `username`, `firstname`, `lastname`, `email`, `password`, `address`, `city`, `dob`, `gender`, `member_since`, `activation_code`, `userType`) VALUES
-(1, 'PereGullis', 'Pere', 'Gullis', 'notthevictim@gmail.com', '8c2da486a8b3e78cd123358c4be00c4d', 'Omstraat 34 bus 12', 'Bilzen', '2014-02-06', '0', '2014-02-06 14:41:48', 'TAW9svKz0rosl3A',1),
-(2, 'GullisDumfan', 'Gullis', 'Idonknow', 'adsdasdas@hotmail.com', '8c2da486a8b3e78cd123358c4be00c4d', 'Omstraat 34 bus 12', 'Bilzen', '2014-02-12', '0', '2014-02-12 22:42:12', 'JtP0ZMxVrrOaIca',2);
+INSERT INTO `tbl_users` (`userId`, `username`, `firstname`, `lastname`, `email`, `password`, `address`, `city`, `dob`, `gender`, `member_since`, `userType`) VALUES
+(1, 'PereGullis', 'Pere', 'Gullis', 'notthevictim@gmail.com', '8c2da486a8b3e78cd123358c4be00c4d', 'Omstraat 34 bus 12', 'Bilzen', '2014-02-06', '0', '2014-02-06 14:41:48',1),
+(2, 'GullisDumfan', 'Gullis', 'Idonknow', 'adsdasdas@hotmail.com', '8c2da486a8b3e78cd123358c4be00c4d', 'Omstraat 34 bus 12', 'Bilzen', '2014-02-12', '0', '2014-02-12 22:42:12', 2);
 
 INSERT INTO `tbl_eventCategories` (`catId`, `categorie`, `iconURL`) VALUES
 (1, 'temporary', 'c'),

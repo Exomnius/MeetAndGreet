@@ -2,8 +2,7 @@
 <div class="container">
     <div class="col-xs-12 homeActionBar">
         <h1 class="pull-left">{title}</h1>
-
-        <a href="{create}" class="btn btn-primary pull-right">Create Event</a>
+        <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal">Create Event</a>
     </div>
 </div>
 
@@ -11,13 +10,91 @@
     <div id="map">
     </div>
 </div>
+<form>
+    <input id="geocomplete" type="text" placeholder="Type in an address" value="Empire State Bldg" autocomplete="off" />
+    <input id="find" type="button" value="find" />
+    <fieldset class="details">
+        <h3>Address-Details</h3>
+    </fieldset>
+    <ul>
+        <li>Location: <span data-geo="location"></span></li>
+        <li>Route: <span data-geo="route"></span></li>
+        <li>Street Number: <span data-geo="street_number"></span></li>
+        <li>Postal Code: <span data-geo="postal_code"></span></li>
+        <li>Locality: <span data-geo="locality"></span></li>
+        <li>Country Code: <span data-geo="country_short"></span></li>
+        <li>State: <span data-geo="administrative_area_level_1"></span></li>
+    </ul>
+</form>
+<div id="createModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Create an Event!</h3>
+            </div>
+            <div class="modal-body">
+                {form_open}
+                <div class="form-group">
+                    <label for="eventName" class="control-label col-lg-3">Event Name:</label>
+                    <div class="col-lg-6">
+                        <input type="text" name="eventName" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="eventTime" class="control-label col-lg-3">Start:</label>
+                    <div class="col-lg-6">
+                        <div class='input-group date' id="dtpStart">
+                            <input type='text' name="dtpStart" class="form-control" readonly value="{start}" />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                            </span> 
+                        </div>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label for="eventCategory" class="control-label col-lg-3">Event Category:</label>
+                    <div class="col-lg-6">
+                        <select name="eventCategory" class="form-control">
+                            {categories}
+                            <option value="{id}">{name}</option>
+                            {/categories}
+                        </select>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label for="eventDescription" class="control-label col-lg-3">Description:</label>
+                    <div class="col-lg-6">
+                        <textarea name="eventDescription" class="form-control" style="width: 100%;"></textarea>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label for="eventLocation" class="control-label col-lg-3">Location:</label>
+                    <div class="col-lg-6">
+                        <input type="text" name="eventLocation" class="form-control"/>
+                    </div>
+                </div> 
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+                {form_close}
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <script>
-var map = null;
-var currentInfoWindow = null;
+    $(document).ready(function() {
+        $('#dtpStart').datetimepicker({
+            language: 'en',
+            format: 'YYYY-M-d hh:mm:ss A'
+        });
 
-$(document).ready(function(){
-
+        var map = null;
 
     function success(position) {
         var mapcanvas = document.createElement('div');
@@ -56,12 +133,12 @@ $(document).ready(function(){
         error('Geo Location is not supported');
     }
 
-    function getMarkers(){
+        function getMarkers() {
         $.ajax({
             url: "api/getMarkers",
-            type : "GET",
-            dataType:'json',
-            success: function(data, status){
+                type: "GET",
+                dataType: 'json',
+                success: function(data, status) {
                 console.log(data);
                 for (var i = 0; i < data.length; i++) {
                     
@@ -81,14 +158,12 @@ $(document).ready(function(){
                     // });
                 }
             },
-            error: function(jqXHR, status, error){
+                error: function(jqXHR, status, error) {
                 console.log('Error: ' + error);
             }
         });
     }
-
-
-});
+    });
 
 function joinEvent(id){
 
@@ -127,4 +202,19 @@ function bindInfoWindow(marker, map, infowindow, html) {
     });
     
 } 
+</script>
+
+<script>
+    $(function() {
+        var options = {
+            map: "#map",
+            details: "form ul",
+            detailsAttribute: "data-geo"};
+        
+        $("#geocomplete").geocomplete(options);
+
+        $("#find").click(function() {
+            $("#geocomplete").trigger("geocode");
+        });
+    });
 </script>

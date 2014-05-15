@@ -9,8 +9,7 @@
  */
 class Event_model extends CI_Model {
 
-
-	public function getEvents(){
+    public function getEvents() {
 		return $this->db->get('tbl_events')->result();
 	}
 

@@ -20,25 +20,25 @@ class User_model extends CI_Model {
 
         $result = $this->db->select('*')->from('tbl_users')->where(array('username' => $username, 'password' => $this->encrypt_password($password)))->get();
 
-        if ($result->num_rows() == 1)
-            return $result->row();
-        else {
-            echo $password;
-            echo '<br/>'. $this->encrypt_password($password).'<br/>';
-            $this->db->select('*')->from('tbl_pass_recovery')->join('tbl_users', 'tbl_users.userid=tbl_pass_recovery.userid')->where('username', $username)->where('expdate <', date('Y-m-d H:i:s', time()))->where('pass', $this->encrypt_password($password));
-            $result = $this->db->get();
-            var_dump($result);
-            if ($result->num_rows() == 1) {
-                echo 'zeik';
-                $user=$result->row();
-                $this->reset_pw($user->userid, $password);
-                $this->db->where('userid', $user->userid)->or_where('expdate >', date('Y-m-d H:i:s', time()))->delete('tbl_pass_recovery');
-                $result = $this->db->select('*')->from('tbl_users')->where(array('username' => $username, 'password' => $this->encrypt_password($password)))->get();
-                return $result->row();
-            }
-
-            return false;
-        }
+//        if ($result->num_rows() == 1)
+        return $result->row();
+//        else {
+//            echo $password;
+//            echo '<br/>'. $this->encrypt_password($password).'<br/>';
+//            $this->db->select('*')->from('tbl_pass_recovery')->join('tbl_users', 'tbl_users.userid=tbl_pass_recovery.userid')->where('username', $username)->where('expdate <', date('Y-m-d H:i:s', time()))->where('pass', $this->encrypt_password($password));
+//            $result = $this->db->get();
+//            var_dump($result);
+//            if ($result->num_rows() == 1) {
+//                echo 'zeik';
+//                $user=$result->row();
+//                $this->reset_pw($user->userid, $password);
+//                $this->db->where('userid', $user->userid)->or_where('expdate >', date('Y-m-d H:i:s', time()))->delete('tbl_pass_recovery');
+//                $result = $this->db->select('*')->from('tbl_users')->where(array('username' => $username, 'password' => $this->encrypt_password($password)))->get();
+//                return $result->row();
+//            }
+//
+//            return false;
+//    }
     }
 
     /**
@@ -70,15 +70,11 @@ class User_model extends CI_Model {
      * @param type $activation_code
      * @return boolean
      */
-    public function register_user($username, $firstname, $lastname, $email, $password, $studnr, $address, $city, $dob, $gender, $activation_code) {
-        $sql = 'CALL sp_register_user(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $parameters = array($username, $firstname, $lastname, $email, $this->encrypt_password($password), $studnr, $address, $city, $dob, $gender, $activation_code);
-        $query = $this->db->query($sql, $parameters);
-
-        if ($this->db->affected_rows())
-            return true;
-        else
-            return false;
+    public function register_user($username, $firstname, $lastname, $email, $password, $address, $city, $dob, $gender) {
+        $pass = $this->encrypt_password($password);
+        $data = array('username' => $username, 'firstname' =>$firstname, 'lastname' => $lastname, 'email' => $email, 'password' => $pass, 'address' => $address, 'city' => $city, 'dob' => $dob, 'gender' => $gender);
+        $this->db->insert('tbl_users', $data);
+        return 1;
     }
 
     /**
@@ -233,108 +229,6 @@ class User_model extends CI_Model {
     }
 
     /**
-     * Checks if a user is an admin.
-     * 
-     * @param type $group_id
-     * @return boolean
-     */
-    function check_admin($group_id = null) {
-        $this->db->from('tbl_user_groups')->select('*')->where(array('group_id' => $group_id));
-        $query = $this->db->get();
-
-        if ($query->num_rows() == 0)
-            return false;
-
-
-        $row = $query->row();
-        if ($row->is_admin != 1)
-            return false;
-        else
-            return true;
-    }
-
-    /**
-     * Returns a user by name.
-     * 
-     * @param type $userName
-     * @return boolean
-     */
-    public function get_userByName($userName) {
-        $this->db->from('tbl_users')->select('*, group_name')->where('userName LIKE', $userName)->join('tbl_user_groups', 'user_group = group_id');
-
-        $query = $this->db->get();
-        if ($query->num_rows() == 1)
-            return $query->row_array();
-        else
-            return false;
-    }
-
-    /**
-     * Returns a user.
-     * 
-     * @param type $limit
-     * @param type $offset
-     * @return boolean
-     */
-    public function get_members_pages($limit, $offset) {
-        $query = $this->db->get('tbl_users', $limit, $offset);
-
-        if ($query->num_rows() > 0)
-            return $query->result_array();
-        else
-            return false;
-    }
-
-    /**
-     * Returns the number of users.
-     * 
-     * @return type
-     */
-    public function get_num_users() {
-        return $this->db->count_all('tbl_users');
-    }
-
-    /**
-     * returns the number of users depending of their username.
-     * 
-     * @param type $search
-     * @return type
-     */
-    public function get_num_users_search($search) {
-        return $this->db->count_all('tbl_users')->where('firstname LIKE ' . '%' . $search . '%');
-    }
-
-    /**
-     * Returns the number of members depending on their username.
-     * 
-     * @param type $limit
-     * @param type $offset
-     * @param type $search
-     * @return boolean
-     */
-    public function get_members_search($limit, $offset, $search) {
-        $query = $this->db->select('*, group_name')->from('tbl_users')->join('tbl_user_groups', 'user_group = group_id')->where('firstname LIKE ', '%' . $search . '%')->or_where('username LIKE ', '%' . $search . '%')->or_where('lastname LIKE ', '%' . $search . '%')->limit($limit, $offset)->get();
-
-        if ($query->num_rows() > 0)
-            return $query->result_array();
-        else
-            return false;
-    }
-
-    /**
-     * Returns the post count of a user.
-     * 
-     * @param type $userId
-     * @return type
-     */
-    public function get_post_count($userId) {
-        $result_topics = $this->db->select('*')->from('tbl_topics')->where('userId', $userId)->get();
-        $result_reactions = $this->db->select('*')->from('tbl_reactions')->where('userId', $userId)->get();
-
-        return $result_topics->num_rows() + $result_reactions->num_rows();
-    }
-
-    /**
      * Changes the user password.
      * 
      * @param type $pass
@@ -351,23 +245,6 @@ class User_model extends CI_Model {
     }
 
     /**
-     * Returns the user profile picture.
-     * 
-     * @param type $username
-     * @return boolean
-     */
-    public function get_profile_pic($username) {
-        $this->db->from('tbl_users')->select('profile_pic')->where('userName LIKE', $username);
-        $query = $this->db->get();
-
-        if ($query->num_rows() == 1) {
-            $row = $query->row();
-            return $row->profile_pic;
-        }else
-            return false;
-    }
-
-    /**
      * Returns the values of the user resetting his/her password.
      * 
      * @param type $email
@@ -381,7 +258,7 @@ class User_model extends CI_Model {
         if ($query->num_rows() == 1) {
             $row = $query->row();
             return $row;
-        }else
+        } else
             return false;
     }
 
@@ -421,21 +298,5 @@ class User_model extends CI_Model {
     public function delete_timed_pass_reset() {
         $this->db->where('expdate <', date('Y-m-d H:i:s', time()))->delete('tbl_pass_recovery');
     }
-     public function get_info_users(){
-        $this->db->order_by('user_group', 'desc');
-       $users =$this->db->select('userId, firstname, lastname, member_since, user_group')->from('tbl_users')->get();
-      if($users)
-       {
-           return $users->result_array();
-       }
-    }
-      public function get_info_user($userId) {
-        $query = $this->db->select('*')->from('tbl_users')->join('tbl_user_groups', 'user_group = group_id')->where('userId', $userId)->get();
 
-        if ($query->num_rows() == 1)
-            return $query->result_array();
-        else
-            return false;
-    }
 }
-
