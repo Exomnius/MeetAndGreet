@@ -100,7 +100,8 @@ class User_model extends CI_Model {
      * @return boolean
      */
     public function get_user($userId) {
-        $query = $this->db->select('*')->from('tbl_users')->join('tbl_user_groups', 'user_group = group_id')->where('userId', $userId)->get();
+        // $query = $this->db->select('*')->from('tbl_users')->join('tbl_user_groups', 'user_group = group_id')->where('userId', $userId)->get();
+        $query = $this->db->select('*')->from('tbl_users')->where('userId', $userId)->get();
 
         if ($query->num_rows() == 1)
             return $query->row_array();
