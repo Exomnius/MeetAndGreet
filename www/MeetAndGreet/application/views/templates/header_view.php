@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{title}</title>
+        <title>Meet and Greet</title>
         {css}
         <link href="{url}" rel="stylesheet" media="screen" />
         {/css}

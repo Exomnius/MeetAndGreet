@@ -15,11 +15,10 @@ class Main extends CI_Controller {
      * COMMENT ABOUT THE FUNCTION
      */
     public function index() {
-        //FOR PAGE WITH HEADER AND FOOTER DATA
+        $footer_data['js'] = array(array('url' => 'http://maps.google.com/maps/api/js?sensor=true"'));
+        
+        $data =array('title' => 'Welcome!');
 
         $this->parser->show('pages/home_view', $data, $header_data, $footer_data);
-        //$this->parser->show('pages/home_view', $data, $header_data, $footer_data);
-        
-        //
     }
 }
