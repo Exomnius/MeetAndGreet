@@ -1,0 +1,203 @@
+/**
+ * @author Cornel Janssen <janssen_cornel@hotmail.com>
+ * @author Nick Thoelen <nickthoelen@gmail.com>
+*/
+table{
+    margin-bottom: 10px;
+}
+a.list-group-title {
+    position: relative;
+    display: block;
+    padding: 3px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    color: #999999;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 11px;
+    background-color: #eeeeee;
+}
+.link-disabled{
+    pointer-events: none;
+    cursor: default;
+}
+.btn{
+    margin-left: 10px;
+}
+
+.fileupload::-webkit-file-upload-button {
+    color:#fff;background-color:#5cb85c;border-color:#1C5E1B;
+    display:inline-block;padding:6px 12px;margin-bottom:0;font-size:14px;font-weight:normal;line-height:1.428571429;text-align:center;white-space:nowrap;vertical-align:middle;cursor:pointer;background-image:none;border:1px solid transparent;border-radius:4px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none
+}
+
+.fileupload::-webkit-file-upload-button:hover {
+    color:#fff;background-color:#47a447;border-color:#398439;
+    display:inline-block;padding:6px 12px;margin-bottom:0;font-size:14px;font-weight:normal;line-height:1.428571429;text-align:center;white-space:nowrap;vertical-align:middle;cursor:pointer;background-image:none;border:1px solid transparent;border-radius:4px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none
+}
+
+.tb-button{
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 5px;
+}
+
+.right-taskbar{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width:100px;
+    height:30px;
+}
+
+.thumbnail img {
+    max-height: 150px;
+}
+
+.thumbnail{
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.thumbnail-link:hover{
+    text-decoration: none;
+}
+
+.thumbnail-upload{
+    height: 100px;
+}
+
+textarea {
+    resize: none;
+}
+
+.btn-margin{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.search{
+    width: 200px;
+    margin: 10px;
+    margin-top: 25px;
+}
+
+.table tbody>tr>td.center-y{
+    vertical-align: middle;
+}
+
+.glyphicon-forum{
+    font-size: 20px;
+    vertical-align: middle;
+    margin: 10px 15px 10px 15px;
+}
+
+.last-post{
+    font-size: 10px;
+}
+
+.last-post-title{
+    font-weight: bold;
+}
+
+.last-post-user{
+    font-weight: bold;
+}
+
+.last-post-date{
+    font-size: 9px;
+    color: grey;
+}
+
+
+.new-thread-btn{
+    margin-bottom: 10px;
+}
+
+.panel{
+    padding: 10px;
+}
+
+.panel-user{
+    color: #333;
+    background-color: #f5f5f5;
+    border: 1px solid;
+    border-color: #ddd;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    padding: 5px;
+}
+
+.post{
+    font-weight: bold;
+    color: #6AC969;
+}
+.post:visited{
+    font-weight: 400;
+    color: #428bca;
+}
+
+.well{
+    margin-top: 50px;
+    height: 220px;
+}
+
+.pull-bottom{
+    position: relative;
+    bottom: 0px;
+}
+
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+
+.profilePic{
+    margin-bottom: 0px;
+    max-height: 200px;
+    max-width: 300px;
+}
+
+.btn-margin{
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.search{
+    width: 200px;
+    margin: 10px;
+    margin-top: 25px;
+}
+
+.carousel-control.left{
+    background-image: -webkit-linear-gradient(left,color-stop(rgba(0,0,0,0.5) 0),color-stop(rgba(0,0,0,0.0001) 100%));
+    background-image: linear-gradient(to right,rgba(0,0,0,0.1) 0,rgba(0,0,0,0.0001) 100%);
+    background-repeat: repeat-x;
+}
+
+.carousel-control.right{
+    background-image: -webkit-linear-gradient(left,color-stop(rgba(0,0,0,0.0001) 0),color-stop(rgba(0,0,0,0.5) 100%));
+    background-image: linear-gradient(to right,rgba(0,0,0,0.0001) 0,rgba(0,0,0,0.1) 100%);
+    background-repeat: repeat-x;
+}
+
+footer{
+    margin-top: 20px;
+}
+
+a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.active:focus {
+    z-index: 2;
+    color: #fff;
+    background-color: #4cae4c;
+    border-color: #4cae4c;
+}
+
+.has-switch span.switch-left, .has-switch span.switch-primary {
+    color: #fff;
+    background: #4cae4c;
+}
+
+
+

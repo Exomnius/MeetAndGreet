@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/xampp/htdocs/Hexion/application/controllers/login.php</file>
+            <file>file:/C:/xampp/htdocs/Hexion/application/controllers/register.php</file>
+        </group>
+        <group name="Java">
+            <file>file:/H:/Hackaton/sjabloon/application/libraries/MY_Parser.php</file>
+            <file>file:/H:/Hackaton/sjabloon/application/config/autoload.php</file>
+            <file>file:/H:/Hackaton/sjabloon/application/views/templates/header_view.php</file>
+            <file>file:/H:/Hackaton/sjabloon/application/config/routes.php</file>
+            <file>file:/H:/Hackaton/sjabloon/application/models/user_model.php</file>
+            <file>file:/H:/Hackaton/sjabloon/application/controllers/index.html</file>
+            <file>file:/H:/Hackaton/sjabloon/application/views/templates/footer_view.php</file>
+            <file>file:/H:/Hackaton/sjabloon/application/config/config.php</file>
+            <file>file:/H:/Hackaton/sjabloon/application/config/database.php</file>
+            <file>file:/H:/Hackaton/sjabloon/application/controllers/main.php</file>
+            <file>file:/H:/Hackaton/sjabloon/application/views/pages/home_view.php</file>
+        </group>
+    </open-files>
+</project-private>
