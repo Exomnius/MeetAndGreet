@@ -30,7 +30,7 @@
                     <label for="eventTime" class="control-label col-lg-3">Start:</label>
                     <div class="col-lg-6">
                         <div class='input-group date' id="dtpStart">
-                            <input type='text' name="dtpStart" class="form-control" readonly value="{start}" />
+                            <input type='text' name="eventTime" class="form-control" readonly value="{start}" />
                             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                             </span> 
                         </div>
@@ -62,6 +62,11 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+
+                <div id="coords">
+                    <input type="hidden" name="lat" value="" />
+                    <input type="hidden" name="lng" value="" />
                 </div>
                 {form_close}
             </div>
@@ -107,80 +112,82 @@
 
             map = new google.maps.Map(document.getElementById("mapcontainer"), options);
             getMarkers();
-    }
+        }
 
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(success);
-    } else {
-        error('Geo Location is not supported');
-    }
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(success);
+        } else {
+            error('Geo Location is not supported');
+        }
 
-      function getMarkers(){
+        function getMarkers() {
+            $.ajax({
+                url: "api/getMarkers",
+                type: "GET",
+                dataType: 'json',
+                success: function(data, status) {
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(data[i]['event']['latitude'], data[i]['event']['longitude']),
+                            map: map
+                        });
+                        marker.setMap(map);
+
+                        var infowindow = new google.maps.InfoWindow();
+
+                        bindInfoWindow(marker, map, infowindow, data[i]['infoWindow']);
+                    }
+                },
+                error: function(jqXHR, status, error) {
+                    console.log('Error: ' + error);
+                }
+            });
+        }
+
+
+        $("#geocomplete").geocomplete({
+            details: 'form',
+        });
+
+    });
+
+    function joinEvent(id) {
+
         $.ajax({
-            url: "api/getMarkers",
-            type : "GET",
-            dataType:'json',
-            success: function(data, status){
-                console.log(data);
-                for (var i = 0; i < data.length; i++) {
-                    
-                    var marker = new google.maps.Marker({
-                        position: new google.maps.LatLng(data[i]['event']['latitude'], data[i]['event']['longitude']),
-                        map: map
-                    });
-                    marker.setMap(map);
-                    
-                    var infowindow = new google.maps.InfoWindow();
+            url: "api/joinEvent/" + id,
+            type: "GET",
+            dataType: 'json',
+            success: function(data, status) {
+                if ($('#joinResult').length != 0) {
+                    $('#joinResult').remove();
+                }
 
-                    bindInfoWindow(marker, map, infowindow, data[i]['infoWindow']); 
+                if (data == -1) {
+                    $("<div id='joinResult' class='alert alert-warning'>You already joined this event!</div>").insertBefore(".homeActionBar");
+                } else if (data == 0) {
+                    $("<div id='joinResult' class='alert alert-success'>You could not join this event.</div>").insertBefore(".homeActionBar");
+                } else if (data == 1) {
+                    $("<div id='joinResult' class='alert alert-success'>You joined this event!</div>").insertBefore(".homeActionBar");
                 }
             },
-            error: function(jqXHR, status, error){
+            error: function(jqXHR, status, error) {
                 console.log('Error: ' + error);
             }
         });
     }
 
+    function closeInfoWindow() {
+        currentInfoWindow.close();
+    }
 
-    $("#geocomplete").geocomplete();
-
-});
-
-function joinEvent(id){
-
-    $.ajax({
-        url: "api/joinEvent/"+id,
-        type : "GET",
-        dataType:'json',
-        success: function(data, status){
-            if($('#joinResult').length != 0){
-                $('#joinResult').remove();
-            }
-
-            if(data == -1){
-                $( "<div id='joinResult' class='alert alert-warning'>You already joined this event!</div>").insertBefore( ".homeActionBar" );
-            } else if(data == 0) {
-                $( "<div id='joinResult' class='alert alert-success'>You could not join this event.</div>").insertBefore( ".homeActionBar" );
-            } else if(data == 1){
-                $( "<div id='joinResult' class='alert alert-success'>You joined this event!</div>").insertBefore( ".homeActionBar" );
-            }
-        },
-        error: function(jqXHR, status, error){
-            console.log('Error: ' + error);
-        }
-    });
-}
-
-function closeInfoWindow(){
-    currentInfoWindow.close();
-}
-
-function bindInfoWindow(marker, map, infowindow, html) {
-    google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent(html);
-        infowindow.open(map, marker);
-        currentInfoWindow = infowindow;
-    });    
-} 
+    function bindInfoWindow(marker, map, infowindow, html) {
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.setContent(html);
+            infowindow.open(map, marker);
+            currentInfoWindow = infowindow;
+        });
+    }
 
 </script>
