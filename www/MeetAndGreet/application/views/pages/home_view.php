@@ -126,13 +126,20 @@
                 type: "GET",
                 dataType: 'json',
                 success: function(data, status) {
-                    console.log(data);
+                    
+                    var iconBase = '/assets/images/';
+
                     for (var i = 0; i < data.length; i++) {
+                        var iconPath = '/assets/images/' + data[i]['cat']['iconURL'] + '.png';
+                        console.log('/assets/images/' + data[i]['cat']['iconURL'] + '.png');
 
                         var marker = new google.maps.Marker({
                             position: new google.maps.LatLng(data[i]['event']['latitude'], data[i]['event']['longitude']),
+                            icon: '/assets/images/' + data[i]['cat']['iconURL'] + '.png',
+                            // icon: '/assets/images/pin-drinks.png',
                             map: map
                         });
+
                         marker.setMap(map);
 
                         var infowindow = new google.maps.InfoWindow();

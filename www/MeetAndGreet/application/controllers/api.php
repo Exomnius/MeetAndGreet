@@ -39,6 +39,7 @@ class Api extends CI_Controller {
 
         	$data[] = array(
         		'event' => $event,
+        		'cat' => $infoWindow['cat'],
         		'infoWindow' => $this->load->view('templates/info_window', $infoWindow, true)
         	);
         }
