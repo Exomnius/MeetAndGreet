@@ -1,6 +1,6 @@
 --
 -- Databank: `meetAndGreet`
---
+-- alalala
 DROP DATABASE IF EXISTS `meetAndGreet`;
 CREATE DATABASE IF NOT EXISTS `meetAndGreet`;
 USE `meetAndGreet`;
