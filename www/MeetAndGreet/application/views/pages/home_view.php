@@ -1,5 +1,8 @@
 <div class="container">
-    <h1>{title}</h1>
+    <div class="col-xs-12">
+        <h1 class="pull-left">{title}</h1>
+        <a href="{create}" class="btn btn-primary pull-right">Create Event</a>
+    </div>
     <section>
         <article></article>
     </section>
@@ -27,10 +30,10 @@
         var map = new google.maps.Map(document.getElementById("mapcontainer"), options);
 
         /*var marker = new google.maps.Marker({
-            position: coords,
-            map: map,
-            title: "You are here!"
-        });*/
+         position: coords,
+         map: map,
+         title: "You are here!"
+         });*/
     }
 
     if (navigator.geolocation) {
@@ -39,7 +42,7 @@
         error('Geo Location is not supported');
     }
 
-    function getMarkers(){
-        
+    function getMarkers() {
+
     }
 </script>
