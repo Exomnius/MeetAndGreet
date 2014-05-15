@@ -52,7 +52,6 @@ class Main extends CI_Controller {
         $categories = $this->category_model->getCategories();
 
         //var_dump($categories);
-                                    (array('url' => 'assets/js/jquery.geocomplete.min.js')));
         
         if ($categories) {
             foreach ($categories as $category) {

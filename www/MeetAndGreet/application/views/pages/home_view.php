@@ -11,11 +11,12 @@
     </div>
 </div>
 <form>
-    <input id="geocomplete" type="text" placeholder="Type in an address" value="Empire State Bldg" autocomplete="off">
-    <input id="find" type="button" value="find">
+    <input id="geocomplete" type="text" placeholder="Type in an address" value="Empire State Bldg" autocomplete="off" />
+    <input id="find" type="button" value="find" />
     <fieldset class="details">
         <h3>Address-Details</h3>
-
+    </fieldset>
+</form>
 <div id="createModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
