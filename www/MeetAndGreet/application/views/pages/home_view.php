@@ -118,7 +118,7 @@
 
             map = new google.maps.Map(document.getElementById("mapcontainer"), options);
 
-            // var marker = new google.maps.Marker({
+            // var marker = new google#maps.Marker({
             //     position: coords,
             //     map: map,
             //     title: "You are here!"
@@ -159,7 +159,7 @@
 <script>
     $(function() {
         var options = {
-            map: "#map",
+            map:"#map",
             details: "form ul",
             detailsAttribute: "data-geo"};
         
