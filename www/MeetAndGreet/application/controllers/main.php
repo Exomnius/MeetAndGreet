@@ -21,7 +21,8 @@ class Main extends CI_Controller {
         
         $footer_data['js'] = array(array('url' => 'http://maps.google.com/maps/api/js?sensor=true&amp;libraries=places'),
                                     (array('url' => 'jquery.geocomplete.js')));
-        
+        $header_data['css'] = array(array('url' => 'http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'));
+
         $data =array('title' => 'Welcome!');
 
         $this->parser->show('pages/home_view', $data, $header_data, $footer_data);
