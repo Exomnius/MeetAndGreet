@@ -21,7 +21,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+<<<<<<< HEAD
                 <a class="navbar-brand" href="{main}">Meet And Greet</a>
+=======
+                <a class="navbar-brand" href="{main}">Meet and greet</a>
+>>>>>>> 800b046519613e2bd0d9f3443abd21377816a5fe
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
