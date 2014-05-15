@@ -2,7 +2,7 @@
 <div class="container">
     <div class="col-xs-12">
         <h1 class="pull-left">{title}</h1>
-        <a href="{create}" class="btn btn-primary pull-right">Create Event</a>
+        <a class="btn btn-primary pull-right" data-toggle="modal" data-target="#createModal">Create Event</a>
     </div>
 </div>
 
@@ -11,68 +11,132 @@
     </div>
 </div>
 
-<Script>
-$(document).ready(function(){
-        
+<div id="createModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title">Create an Event!</h3>
+            </div>
+            <div class="modal-body">
+                {form_open}
+                <div class="form-group">
+                    <label for="eventName" class="control-label col-lg-3">Event Name:</label>
+                    <div class="col-lg-6">
+                        <input type="text" name="eventName" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="eventTime" class="control-label col-lg-3">Start:</label>
+                    <div class="col-lg-6">
+                        <div class='input-group date' id="dtpStart">
+                            <input type='text' name="dtpStart" class="form-control" readonly value="{start}" />
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                            </span> 
+                        </div>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label for="eventCategory" class="control-label col-lg-3">Event Category:</label>
+                    <div class="col-lg-6">
+                        <select name="eventCategory" class="form-control">
+                            {categories}
+                            <option value="{id}">{name}</option>
+                            {/categories}
+                        </select>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label for="eventDescription" class="control-label col-lg-3">Description:</label>
+                    <div class="col-lg-6">
+                        <textarea name="eventDescription" class="form-control" style="width: 100%;"></textarea>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label for="eventLocation" class="control-label col-lg-3">Location:</label>
+                    <div class="col-lg-6">
+                        <input type="text" name="eventLocation" class="form-control"/>
+                    </div>
+                </div> 
 
-    var map = null;
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+                {form_close}
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-    function success(position) {
-        var mapcanvas = document.createElement('div');
-        mapcanvas.id = 'mapcontainer';
-        mapcanvas.style.height = '400px';
-        mapcanvas.className = 'text-center';
-
-        document.querySelector('#map').appendChild(mapcanvas);
-
-        var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-        var options = {
-            zoom: 15,
-            center: coords,
-            mapTypeControl: false,
-            navigationControlOptions: {
-                style: google.maps.NavigationControlStyle.SMALL
-            },
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-
-        map = new google.maps.Map(document.getElementById("mapcontainer"), options);
-
-        // var marker = new google.maps.Marker({
-        //     position: coords,
-        //     map: map,
-        //     title: "You are here!"
-        // });
-
-        getMarkers();
-    }
-
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(success);
-    } else {
-        error('Geo Location is not supported');
-    }
-
-    function getMarkers(){
-        $.ajax({
-            url: "api/getMarkers",
-            type : "GET",
-            dataType:'json',
-            success: function(data, status){
-                console.log(data);
-                for (var i = 0; i < data.length; i++) {
-                    var marker = new google.maps.Marker({
-                        position: new google.maps.LatLng(data[i]['latitude'], data[i]['longitude']),
-                        map: map
-                    });
-                    marker.setMap(map);
-                }
-            },
-            error: function(jqXHR, status, error){
-                console.log('Error: ' + error);
-            }
+<script>
+    $(document).ready(function() {
+        $('#dtpStart').datetimepicker({
+            language: 'en',
+            format: 'YYYY-M-d hh:mm:ss A'
         });
-    }
-});
+
+        var map = null;
+
+        function success(position) {
+            var mapcanvas = document.createElement('div');
+            mapcanvas.id = 'mapcontainer';
+            mapcanvas.style.height = '400px';
+            mapcanvas.className = 'text-center';
+
+            document.querySelector('#map').appendChild(mapcanvas);
+
+            var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+            var options = {
+                zoom: 15,
+                center: coords,
+                mapTypeControl: false,
+                navigationControlOptions: {
+                    style: google.maps.NavigationControlStyle.SMALL
+                },
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            map = new google.maps.Map(document.getElementById("mapcontainer"), options);
+
+            // var marker = new google.maps.Marker({
+            //     position: coords,
+            //     map: map,
+            //     title: "You are here!"
+            // });
+
+            getMarkers();
+        }
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(success);
+        } else {
+            error('Geo Location is not supported');
+        }
+
+        function getMarkers() {
+            $.ajax({
+                url: "api/getMarkers",
+                type: "GET",
+                dataType: 'json',
+                success: function(data, status) {
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(data[i]['latitude'], data[i]['longitude']),
+                            map: map
+                        });
+                        marker.setMap(map);
+                    }
+                },
+                error: function(jqXHR, status, error) {
+                    console.log('Error: ' + error);
+                }
+            });
+        }
+    });
 </script>
