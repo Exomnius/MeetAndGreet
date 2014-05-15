@@ -29,6 +29,7 @@
                         <!--<li id="members"><a href="{members}">Leden</a></li>-->
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <li>{exp}</li>
                         <li id="register"><a href="{profile}">{profilet}</a></li>
                         <li id="login"><a href="{login}">{logint}</a></li>
                     </ul>
