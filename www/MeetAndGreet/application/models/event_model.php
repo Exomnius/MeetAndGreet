@@ -42,10 +42,10 @@ class Event_model extends CI_Model {
 
 		$this->db->insert('tbl_eventsusers', array('userId' => $userId, 'eventId' => $eventId));
         if ($this->db->affected_rows()){
-            $query->db->select('exp')->from('tbl_users')->where('userId', $userId).get();
-            $user = $query->row_array();
+            // $query->db->select('exp')->from('tbl_users')->where('userId', $userId).get();
+            // $user = $query->row_array();
             
-            $this->db->update('tbl_users', array('exp' => ($user['exp'] + 1)));
+            // $this->db->update('tbl_users', array('exp' => ($user['exp'] + 1)));
             return 1;
         }else
             return 0;
