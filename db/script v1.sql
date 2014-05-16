@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `tbl_eventsusers` (
 CREATE TABLE IF NOT EXISTS `tbl_levels` (
 	`level` int(5) NOT NULL AUTO_INCREMENT,
 	`expRequired` int(10) NOT NULL,
-	`title` varchar(20) NOT NULL,
+	`title` varchar(30) NOT NULL,
 	PRIMARY KEY (`level`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
@@ -115,7 +115,7 @@ ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`userType`) REFERENCES `tbl_userTypes
 
 ALTER TABLE `tbl_events`
 ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`catId`) REFERENCES `tbl_eventCategories` (`catId`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `events_ibfk_2` FOREIGN KEY (`visivility`) REFERENCES `tbl_visibility` (`visibilityId`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `events_ibfk_2` FOREIGN KEY (`visibility`) REFERENCES `tbl_visibility` (`visibilityId`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `events_ibfk_3` FOREIGN KEY (`catId`) REFERENCES `tbl_eventCategories` (`catId`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `tbl_eventsusers`
@@ -124,4 +124,4 @@ ADD CONSTRAINT `eventsusers_ibfk_2` FOREIGN KEY(`userId`) REFERENCES `tbl_users`
 
 ALTER TABLE `tbl_friends`
 ADD CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `tbl_users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`friendId`) REFERENCES `tbl_users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`friendId`) REFERENCES `tbl_users` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE;
