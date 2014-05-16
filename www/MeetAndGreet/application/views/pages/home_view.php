@@ -6,7 +6,6 @@
 
 <div class="container">
     <div class="col-xs-12 homeActionBar">
-        <h1 class="pull-left">{title}</h1>
         {createEvent}
     </div>
 </div>
