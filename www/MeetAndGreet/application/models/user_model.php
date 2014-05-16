@@ -344,4 +344,18 @@ class User_model extends CI_Model {
         else
             return false;
     }
+
+
+    public function updateLastLogin($userId, $latitude, $longitude){
+
+
+        $data = array(
+              'latitude' => $latitude
+            , 'longitude' => $longitude
+            , 'last_login' => date('Y-m-d H:i:s A'));
+
+        $result = $this->db->update('tbl_users', $data, array('userId' => $userId));
+        
+
+    }
 }

@@ -117,12 +117,42 @@
 
             map = new google.maps.Map(document.getElementById("mapcontainer"), options);
             getMarkers();
+            getFriendMarkers();
         }
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(success);
+            navigator.geolocation.getCurrentPosition(updateLastLogin);
         } else {
             error('Geo Location is not supported');
+        }
+
+        function getFriendMarkers() {
+            $.ajax({
+                url: "api/getFriends",
+                type: "GET",
+                dataType: 'json',
+                success: function(data, status) {
+
+                    for (var i = 0; i < data.length; i++) {
+
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(data[i]['user']['latitude'], data[i]['user']['longitude']),
+                            icon: '/assets/images/pin-friend.png',
+                            map: map
+                        });
+
+                        marker.setMap(map);
+
+                        var infowindow = new google.maps.InfoWindow();
+
+                        bindInfoWindow(marker, map, infowindow, data[i]['infoWindow']);
+                    }
+                },
+                error: function(jqXHR, status, error) {
+                    console.log('Error: ' + error);
+                }
+            });
         }
 
         function getMarkers() {
@@ -135,8 +165,6 @@
                     var iconBase = '/assets/images/';
 
                     for (var i = 0; i < data.length; i++) {
-                        var iconPath = '/assets/images/' + data[i]['cat']['iconURL'] + '.png';
-                        console.log('/assets/images/' + data[i]['cat']['iconURL'] + '.png');
 
                         var marker = new google.maps.Marker({
                             position: new google.maps.LatLng(data[i]['event']['latitude'], data[i]['event']['longitude']),
@@ -164,6 +192,23 @@
         });
 
     });
+
+    function updateLastLogin(position){
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+
+        $.ajax({
+                url: "api/updateLastLogin/"+latitude+"/"+longitude,
+                type: "GET",
+                dataType: 'json',
+                success: function(data, status) {
+                    console.log(data);
+                },
+                error: function(jqXHR, status, error) {
+                    console.log('Error: ' + error);
+                }
+            });
+    }
 
     function joinEvent(id) {
 

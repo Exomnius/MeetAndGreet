@@ -18,6 +18,52 @@ class Api extends CI_Controller {
 
     }
 
+    public function updateLastLogin($lat = null, $long = null){
+ 
+        if($this->session->userdata('id') && $lat !== null && $long !== null){
+        	$this->load->model('user_model');
+        	$this->user_model->updateLastLogin($this->session->userdata('id'), (double)$lat, (double)$long);
+        }
+
+        $data['lat'] = (double)$lat;
+        $data['long'] = (double)$long;
+    	print json_encode($data);
+
+
+    }
+
+    public function getFriends(){
+
+        if(!$this->session->userdata('id'))
+        	return;
+
+        $this->load->model('user_model');
+
+        $friends = $this->user_model->getFriends($this->session->userdata('id'));
+        $data = array();
+
+        foreach ($friends as $key => $value) {
+
+        	// $data[$key]['user'] = $this->user_model->get_user($value['userId']);
+        	$user = $this->user_model->get_user($value['userId']);
+
+        	$last_login = date_create($user['last_login']);
+			$now = new DateTime();
+			$difference = $now->diff($last_login);
+
+			if((int)$difference->format('%d') < 1){	
+				$temp['user'] = $user;			
+				$data[$key]['user'] = $user;
+				$data[$key]['infoWindow'] = $this->load->view('templates/info_window_friend', $temp, true);
+			}
+
+        }
+
+    	print json_encode($data);
+
+
+    }
+
     public function getMarkers(){
 
         $this->load->model('event_model');
