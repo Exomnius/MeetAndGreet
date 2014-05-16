@@ -1,7 +1,7 @@
 
 .homeActionBar {
-	h1 {
-		margin-top: 0;
+	a {
+		margin-bottom: 20px;
 	}
 }
 
@@ -32,10 +32,30 @@
 }
 
 
-
+$main: #3276b1;
 
 nav.navbar {
 	margin: 0;
+	background-color: $main;
+
+	.navbar-brand {
+		color: white;
+	}
+
+	.icon-bar {
+		color: white;
+		background-color: white !important;
+	}
+
+	ul.nav li a {
+		color: white;
+	}
+
+	.logo a {
+		// padding: 10px 0 0 10px;
+		float: left;
+		height: 43px;
+	}
 }
 
 .progress {

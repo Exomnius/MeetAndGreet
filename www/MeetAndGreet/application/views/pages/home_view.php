@@ -98,7 +98,7 @@
         function success(position) {
             var mapcanvas = document.createElement('div');
             mapcanvas.id = 'mapcontainer';
-            mapcanvas.style.height = '400px';
+            mapcanvas.style.height = '600px';
             mapcanvas.className = 'text-center';
 
             document.querySelector('#map').appendChild(mapcanvas);
@@ -207,7 +207,7 @@
                if(data){
                     var htmlString = "<ul id='messagesList'>";
                     for (var i = 0; i < data.length; i++) {
-                        htmlString += "<li><a href='#'>"+getPreviewText(data[i]['message']['message'])+"</a> from "+data[i]['user']['username']+"</li>";
+                        htmlString += "<li><a onclick='alert("+ data[i]['message']['message'] +")' href='#'>"+getPreviewText(data[i]['message']['message'])+"</a> from "+data[i]['user']['username']+"</li>";
                     };
                     htmlString += "</ul>";
                     // return htmlString;
