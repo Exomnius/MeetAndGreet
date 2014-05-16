@@ -65,9 +65,9 @@ class MY_Parser extends CI_Parser {
         } else {
             //$is_admin = $CI->user_model->check_admin($CI->user_model->get_user($CI->session->userdata('id'))['user_group']);
 
-            $header_data['profile'] = site_url('user/show/' . $CI->session->userdata('username'));
+            $header_data['profile'] = site_url('user/friends');
             $header_data['login'] = site_url('login/logout');
-            $header_data['profilet'] = '';
+            $header_data['profilet'] =  'Friendslist';
             $header_data['logint'] = 'Logout';
 //            if ($is_admin)
 //                $header_data['cms'] = '<a href="' . site_url('cms') . '">Beheer</a>';

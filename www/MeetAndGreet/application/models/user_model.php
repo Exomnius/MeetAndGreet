@@ -344,4 +344,32 @@ class User_model extends CI_Model {
         else
             return false;
     }
+    
+    public function getUserByName($name){
+        $result = $this->db->select('*')->from('tbl_users')->where("username LIKE '" . $name . "'")->get();
+
+        if ($result->num_rows() > 0)
+            return $result->row_array();
+        else
+            return false;
+    }
+    
+    public function addFriend($userId, $friendId){
+        $this->db->insert('tbl_friends', array('userId' => $userId, 'friendId' => $friendId));
+
+        if ($this->db->affected_rows()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function checkIfFriend($userId, $friendId){
+         $result = $this->db->from('tbl_friends')->select('*')->where(array('userId' => $userId, 'friendId' => $friendId))->get();
+
+        if ($result->num_rows() > 0)
+            return true;
+        else
+            return false;
+    }
 }
