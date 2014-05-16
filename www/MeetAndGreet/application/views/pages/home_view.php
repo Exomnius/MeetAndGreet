@@ -98,7 +98,7 @@
         function success(position) {
             var mapcanvas = document.createElement('div');
             mapcanvas.id = 'mapcontainer';
-            mapcanvas.style.height = '400px';
+            mapcanvas.style.height = '600px';
             mapcanvas.className = 'text-center';
 
             document.querySelector('#map').appendChild(mapcanvas);

@@ -23,7 +23,8 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a href="#" id="messages"><img src="/assets/images/messages.png" alt=""></a>
-                    <a class="navbar-brand" href="{main}">Meet And Greet</a>
+                    <!-- <a class="navbar-brand" href="{main}">Meet And Greet</a> -->
+                    <a class="navbar-brand" class="logo" href="/"><img src="/assets/images/logo.png" alt=""></a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
