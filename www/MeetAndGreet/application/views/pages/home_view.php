@@ -83,6 +83,7 @@
 <!-- /.modal -->
 
 
+
 <script>
     $(document).ready(function() {
 
@@ -93,7 +94,7 @@
 
         var map = null;
         var currentInfoWindow = null;
-
+        var messagesCount = -1;
 
         function success(position) {
             var mapcanvas = document.createElement('div');
@@ -187,11 +188,60 @@
         }
 
 
+
         $("#geocomplete").geocomplete({
-            details: 'form',
+            details: 'form'
         });
 
+        
+        
+        setInterval(getMessages(), 10000);
+
     });
+
+    function getMessages(){
+        $.ajax({
+            url: "api/getMessages",
+            type: "GET",
+            dataType: 'json',
+            success: function(data, status) {
+               if(data){
+                    var htmlString = "<ul id='messagesList'>";
+                    for (var i = 0; i < data.length; i++) {
+                        htmlString += "<li><a href='#'>"+getPreviewText(data[i]['message']['message'])+"</a> from "+data[i]['user']['username']+"</li>";
+                    };
+                    htmlString += "</ul>";
+                    // return htmlString;
+
+                    var popoveroptions = {
+                        title: 'Your messages',
+                        html: true,
+                        placement: 'bottom',
+                        content: htmlString };
+
+                        $('#messages').popover(popoveroptions);
+                    }
+                },
+            error: function(jqXHR, status, error) {
+                console.log('Error: ' + error);
+            }
+        });
+    }
+
+    function sendMessage(userId, message){
+        $.ajax({
+            url: "api/sendMessage",
+            type: "POST",
+            data: { message: message, userId: userId },
+            dataType: 'text',
+            success: function(data, status) {
+               console.log(data);
+            },
+            error: function(jqXHR, status, error) {
+                console.log('Error: ' + error);
+            }
+        });
+    }
 
     function updateLastLogin(position){
         var latitude = position.coords.latitude;
@@ -210,7 +260,7 @@
             });
     }
 
-    function joinEvent(id) {
+    function joinEvent(id, userId) {
 
         $.ajax({
             url: "api/joinEvent/" + id,
@@ -227,6 +277,7 @@
                     $("<div id='joinResult' class='alert alert-warning'>You could not join this event.</div>").insertBefore(".homeActionBar");
                 } else if (data == 1) {
                     $("<div id='joinResult' class='alert alert-success'>You joined this event!</div>").insertBefore(".homeActionBar");
+                    sendMessage(userId, 'Hi! I joined your event!');
                 }
             },
             error: function(jqXHR, status, error) {
@@ -245,6 +296,14 @@
             infowindow.open(map, marker);
             currentInfoWindow = infowindow;
         });
+    }
+
+    function getPreviewText(tekst){
+        if(tekst.length > 25){
+            return tekst.substring(0, 25) + "...";
+        } else {
+            return tekst;
+        }
     }
 
 </script>

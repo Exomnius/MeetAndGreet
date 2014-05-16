@@ -73,3 +73,33 @@ footer {
 	position: absolute;
 	bottom: 0;
 }
+
+
+#messages {
+	float: right;
+	margin: 15px 10px 0 0;
+
+	img {
+		width: 30px;
+		// height: 30px;
+	}
+}
+
+.popover {
+	top: 40px !important;
+    left: auto !important;
+    right: 10px !important;
+
+     .arrow {
+     	left: 73% !important;
+     }
+}
+
+#messagesList {
+	list-style-type: none;
+	padding: 0px;
+
+	li {
+		width: 100%;
+	}
+}

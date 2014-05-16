@@ -22,6 +22,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    <a href="#" id="messages"><img src="/assets/images/messages.png" alt=""></a>
                     <a class="navbar-brand" href="{main}">Meet And Greet</a>
                 </div>
                 <div class="navbar-collapse collapse">

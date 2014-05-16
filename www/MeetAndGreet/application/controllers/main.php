@@ -21,6 +21,7 @@ class Main extends CI_Controller {
             array('url' => 'assets/js/bootstrap-datetimepicker.min.js'));
         $header_data['css'][] = array('url' => 'assets/css/bootstrap-datetimepicker.min.css');
 
+
         //vars in form
         /* $eventName = set_value('eventName');
           $eventTime = set_valur('eventTime');

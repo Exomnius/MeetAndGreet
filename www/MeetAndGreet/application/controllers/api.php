@@ -117,4 +117,42 @@ class Api extends CI_Controller {
     	print json_encode($data);
 
     }
+
+
+    public function getMessages(){
+
+    	if(!$this->session->userdata('id')){
+    		return;
+    	}
+
+    	$this->load->model('user_model');
+    	$this->load->model('message_model');
+        $results = $this->message_model->getMessages($this->session->userdata('id'));
+
+        $data = array();
+        if($results){
+        	foreach ($results as $key => $result) {
+        		$data[$key]['message'] = $result;
+        		$data[$key]['user'] =  $this->user_model->get_user($result->senderId);
+        	}
+        }
+
+    	print json_encode($data);
+
+    }
+
+    public function sendMessage(){
+    	if(!$this->session->userdata('id')){
+    		return;
+    	}
+
+    	$this->load->model('message_model');
+
+    	$message = $this->input->post('message');
+    	$receiverId = $this->input->post('userId');
+
+    	if($message && $receiverId){
+    		$this->message_model->sendMessage($this->session->userdata('id'), $receiverId, $message);
+    	}
+    }
 }

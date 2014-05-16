@@ -71,3 +71,34 @@ footer {
   position: absolute;
   bottom: 0;
 }
+
+/* line 78, ../sass/_styles.scss */
+#messages {
+  float: right;
+  margin: 15px 10px 0 0;
+}
+/* line 82, ../sass/_styles.scss */
+#messages img {
+  width: 30px;
+}
+
+/* line 88, ../sass/_styles.scss */
+.popover {
+  top: 40px !important;
+  left: auto !important;
+  right: 10px !important;
+}
+/* line 93, ../sass/_styles.scss */
+.popover .arrow {
+  left: 73% !important;
+}
+
+/* line 98, ../sass/_styles.scss */
+#messagesList {
+  list-style-type: none;
+  padding: 0px;
+}
+/* line 102, ../sass/_styles.scss */
+#messagesList li {
+  width: 100%;
+}
