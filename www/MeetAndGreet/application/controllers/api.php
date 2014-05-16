@@ -78,8 +78,14 @@ class Api extends CI_Controller {
         	$infoWindow['cat'] = $this->event_model->getEventCategorie($event->catId);
         	$infoWindow['catIcon'] = $this->getCategorieIcon($event->catId);
         	$infoWindow['event'] = $event;
-        	$infoWindow['joinedCount'] = $this->event_model->getEventPeopleJoinedCount($event->eventId);        	
 
+        	$infoWindow['joinedCount'] = $this->event_model->getEventPeopleJoinedCount($event->eventId);        	
+        	if($this->session->userdata('id')){
+        		$infoWindow['allowJoin'] = $this->event_model->allowUserToJoin($this->session->userdata('id'), $event->eventId);
+        		
+        	} else {
+        		$infoWindow['allowJoin'] = false;
+        	}
         	// var_dump($infoWindow['cat']);
         	// die();
 
@@ -103,12 +109,15 @@ class Api extends CI_Controller {
 
     public function joinEvent($eventId) {
 
+    	if(!$this->session->userdata('id'))
+    		return;
+
         $this->load->model('event_model');
 
-        $userId = 2; // todo remove this
+        
 
         if($this->session->userdata('id')){
-        	$data = $this->event_model->joinEvent($eventId, $userId);
+        	$data = $this->event_model->joinEvent($eventId, $this->session->userdata('id'));
         } else {
         	$data = false;
         }

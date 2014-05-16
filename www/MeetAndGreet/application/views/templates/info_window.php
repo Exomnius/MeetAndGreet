@@ -9,6 +9,8 @@
 	</div>
 	<span><strong>Extra description</strong></span>
 	<p class="float-left"><?php print $event->description; ?></p>
-	<a href="#" onclick="joinEvent(<?php print $event->eventId.','.$event->user; ?>)" class="btn btn-primary">Join</a>
+	<?php if($allowJoin): ?>
+		<a href="#" onclick="joinEvent(<?php print $event->eventId.','.$event->user; ?>)" class="btn btn-primary">Join</a>
+	<?php endif; ?>
 	<a href="#" onclick="closeInfoWindow()" class="btn btn-default">Cancel</a>
 </div>

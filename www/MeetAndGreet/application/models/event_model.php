@@ -55,7 +55,23 @@ class Event_model extends CI_Model {
             return true;
         } else {
             return false;
-	}
+	   }
+    }
+
+    public function allowUserToJoin($userId, $eventId){
+
+
+        $query = $this->db->select('*')
+            ->from('tbl_eventsusers')
+            ->where('eventId', $eventId)
+            ->where('userId', $userId)->get();
+
+        if($query->num_rows() == 0){
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 }
