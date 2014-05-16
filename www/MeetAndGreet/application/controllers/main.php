@@ -69,14 +69,14 @@ class Main extends CI_Controller {
         //$validation_errors = validation_errors();
         $form_close = form_close();
 
-        $data = array('title' => 'Welcome!'
+        $data = array(//'title' => 'Welcome!'
             //, 'eventName' => $eventName
             //, 'eventTime' => $eventTime
             //, 'eventCategory' => $eventCategory
             //, 'eventImage' => $eventImage
             //, 'eventDescription' => $eventDescription
             //, 'eventLocation' => $eventLocation
-            , 'bar_progress' => $bar_progress
+            'bar_progress' => $bar_progress
             , 'createEvent' => $createButton
             , 'form_open' => $form_open
             //, 'validation_errors' => $validation_errors
